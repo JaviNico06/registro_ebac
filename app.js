@@ -1,5 +1,28 @@
+document.addEventListener("DOMContentLoaded", function(){
+
+
 //Muestra un mensaje de bienvenida en la consola
 console.log("Sistema EBAC de registro de alumnos");
+
+//Declaracion de variables para enlazarlas con HTML y su respectivo ID
+var form = document.getElementById("registration-form");
+var addButton = document.getElementById("add-button");
+var consultButton = document.getElementById("consult-button");
+var deleteButton = document.getElementById("delete-button");
+
+//Evento al cual se le asignan parametros
+form.addEventListener("submit", agregarAlumno);
+//Para no mostrar el formulario
+form.style.display = "none";
+
+addButton.addEventListener("click", function(event){
+    form.style.display = "flex";
+})
+
+consultButton.addEventListener("click", consultarRegistros);
+
+deleteButton.addEventListener("click", eliminarAlumno);
+
 
 // La variable guarda en un diccionario los alumnos
 var registro = [
@@ -13,21 +36,33 @@ var registro = [
 ];
 
 // Esta funcion agrega a los alumnos dentro del diccionario registro
-function agregarAlumno(){
-    var name = prompt("Ingresa el nombre del nuevo alumno");
-    var recidenceZone = prompt("Ingresa la zona de residencia del alumno");
-    var age = prompt("Ingresa la edad del alumno");
-    var studyProgram = prompt("Ingresa el programa a estudiar del alumno");
-    var email = prompt("Ingresa el correo electronico del alumno");
+function agregarAlumno(event){
+
+    event.preventDefault();
+
+    var name = document.getElementById("name-input").value;
+    var recidenceZone = document.getElementById("locality-input").value;
+    var age = document.getElementById("age-input").value;
+    var studyProgram = document.getElementById("course-input").value;
+    var email = document.getElementById("email-input").value;
 
     var nuevoAlumno = {name: name, age: age, recidenceZone: recidenceZone, studyProgram: studyProgram, email: email};
     // .push funciona para agregar datos dentro del arreglo
     registro.push(nuevoAlumno);
+
+    //Para mostrar el campo vacio
+    var name = document.getElementById("name-input").value = "";
+    var recidenceZone = document.getElementById("locality-input").value = "";
+    var age = document.getElementById("age-input").value = "";
+    var studyProgram = document.getElementById("course-input").value = "";
+    var email = document.getElementById("email-input").value = "";
+
+    form.style.display = "none";
 }
 
 // Esta funcion muestra la cantidad de alumnos al principio y muestra los alumnos que hay
 function consultarRegistros(){
-    conteoAlumno();
+   /* conteoAlumno();
     for(var i = 0; i < registro.length; i++){
         console.log("Alumno " + (i + 1));
         console.log("Nombre: " + registro[i].name);
@@ -36,7 +71,9 @@ function consultarRegistros(){
         console.log("Programa de estudio: " + registro[i].studyProgram);
         console.log("Correo electronico: " + registro[i].email);
         console.log("------------------------------------------------")
-    };
+        */
+       console.table(registro);
+    //};
     //console.log(registro[2].age);
 }
 
@@ -55,10 +92,10 @@ function conteoAlumno(){
 
 
 // El do-while evalua si aun quiero seguir haciendo consultas, mientras la respuesta sea "s"
-do{
+//do{
 
 // Se muestra un menu para seleccionar la opcion deseada
-var opcion = prompt("Seleccione una opcion: \n1. Agregar registro \n2. Consultar registros de los alumnos \n3. Eliminar registro \n4. Salir")
+/*var opcion = prompt("Seleccione una opcion: \n1. Agregar registro \n2. Consultar registros de los alumnos \n3. Eliminar registro \n4. Salir")
 
 if (opcion === "1"){
     agregarAlumno();
@@ -76,6 +113,5 @@ var continuar = prompt('Deseas hacer otra accion? (S/N)')
 
 } while(continuar === "s");
 
-
-
-
+*/
+});
